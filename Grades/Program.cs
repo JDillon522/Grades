@@ -22,6 +22,18 @@ namespace Grades
             Console.WriteLine($"Lowest: {stats.LowestGrade}");
             Console.WriteLine($"Average: {stats.AverageGrade}");
 
+            Book.NameChanged += OneNameChanged;
+            Book.NameChanged += OneNameChanged;
+
+            Book.Name = "Joes book";
+            Book.Name = "Someone elses book";
         }
+
+        static void OneNameChanged(object sender, NameChangedEventArgs args)
+        {
+            Console.WriteLine($"Gradebook changing name from {args.OldName} to {args.NewName}");
+        }
+        
     }
+
 }

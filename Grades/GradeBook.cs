@@ -8,11 +8,34 @@ namespace Grades
 {
     public class GradeBook
     {
+        private string _name;
         public List<float> grades { get; set; }
-        public string Name { get; set; }
+        public string Name {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (_name != value)
+                {
+                    NameChangedEventArgs args = new NameChangedEventArgs();
+                    args.NewName = value;
+                    args.OldName = _name;
+
+                    NameChanged(this, args);
+                }
+
+                if (!String.IsNullOrEmpty(value))
+                {
+                    _name = value;
+                }
+            }
+        }
 
         public GradeBook()
         {
+            _name = "empty";
             grades = new List<float>();
         }
 
@@ -36,5 +59,8 @@ namespace Grades
             stats.AverageGrade = sum / (grades.Count > 0 ? grades.Count : 1);
             return stats;
         }
+
+        public event NameChangedDelegate NameChanged;
+
     }
 }
